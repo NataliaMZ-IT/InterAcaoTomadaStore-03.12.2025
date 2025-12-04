@@ -83,5 +83,25 @@ namespace TomadaStore.CustomerAPI.Repositories
                 throw new Exception(e.StackTrace);
             }
         }
+
+        public async Task ChangeCustomerStatusAsync(int id, bool status)
+        {
+            try
+            {
+                var deleteSql = @"UPDATE Customers SET IsActive = @IsActive WHERE iD = @Id";
+
+                await _connection.ExecuteAsync(deleteSql, new { IsActive = status, Id = id });
+            }
+            catch (SqlException sqlEx)
+            {
+                _logger.LogError($"SQL Error inactivating customer: {sqlEx.Message}");
+                throw new Exception(sqlEx.StackTrace);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Error inactivating customer: {e.Message}");
+                throw new Exception(e.StackTrace);
+            }
+        }
     }
 }

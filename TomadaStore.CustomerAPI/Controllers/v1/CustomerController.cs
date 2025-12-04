@@ -75,5 +75,22 @@ namespace TomadaStore.CustomerAPI.Controllers.v1
                 return Problem(e.Message);
             }
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> InactivateCustomerAsync(int id)
+        {
+            try
+            {
+                await _customerService.InactivateCustomerAsync(id);
+
+                return NoContent();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Error occured while inactivating customer. " +
+                    e.Message);
+                return Problem(e.Message);
+            }
+        }
     }
 }
