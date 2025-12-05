@@ -23,5 +23,15 @@
         {
             PhoneNumber = phoneNumber;
         }
+
+        public Customer(int id, string firstName, string lastName, string email, string? phoneNumber, bool isActive)
+        {
+            Id = id;
+            FirstName = firstName;
+            LastName = lastName;
+            Email = email;
+            PhoneNumber = phoneNumber;
+            IsActive = isActive;
+        }
     }
 }

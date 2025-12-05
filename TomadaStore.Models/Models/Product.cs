@@ -17,5 +17,16 @@ namespace TomadaStore.Models.Models
             Price = price;
             Category = category;
         }
+
+        public Product(string id, string name, string description, decimal price, Category category)
+        {
+            Id = new ObjectId(id);
+            Name = name;
+            Description = description;
+            Price = price;
+            Category = category;
+        }
+
+        public Product() { }
     }
 }
