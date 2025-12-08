@@ -1,17 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TomadaStore.Models.DTOs.Sale;
-using TomadaStore.SaleAPI.Services.Interfaces;
+using TomadaStore.SaleAPI.Services.v2;
 
-namespace TomadaStore.SaleAPI.Controllers
+namespace TomadaStore.SaleAPI.Controllers.v2
 {
-    [Route("api/v1/[controller]")]
+    [Route("api/v2/[controller]")]
     [ApiController]
     public class SaleController : ControllerBase
     {
         private readonly ILogger<SaleController> _logger;
-        private readonly ISaleService _saleService;
+        private readonly SaleServiceV2 _saleService;
 
-        public SaleController(ILogger<SaleController> logger, ISaleService saleService)
+        public SaleController(ILogger<SaleController> logger, SaleServiceV2 saleService)
         {
             _logger = logger;
             _saleService = saleService;

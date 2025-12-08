@@ -33,5 +33,7 @@
             PhoneNumber = phoneNumber;
             IsActive = isActive;
         }
+
+        public Customer () { }
     }
 }

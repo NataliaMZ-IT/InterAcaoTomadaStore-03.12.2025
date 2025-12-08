@@ -1,7 +1,6 @@
 ﻿using MongoDB.Driver;
 using TomadaStore.Models.DTOs.Customer;
 using TomadaStore.Models.DTOs.Product;
-using TomadaStore.Models.DTOs.Sale;
 using TomadaStore.Models.Models;
 using TomadaStore.SaleAPI.Data;
 using TomadaStore.SaleAPI.Repositories.Interfaces;
