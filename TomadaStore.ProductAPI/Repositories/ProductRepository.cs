@@ -33,6 +33,7 @@ namespace TomadaStore.ProductAPI.Repositories
                         product.Price,
                         new Category
                         (
+                            ObjectId.GenerateNewId(),
                             product.Category.Name,
                             product.Category.Description
                         )

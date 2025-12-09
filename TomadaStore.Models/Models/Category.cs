@@ -14,6 +14,13 @@ namespace TomadaStore.Models.Models
             Description = description;
         }
 
+        public Category(ObjectId id, string name, string description)
+        {
+            Id = id;
+            Name = name;
+            Description = description;
+        }
+
         public Category(string id, string name, string description)
         {
             Id = new ObjectId(id);
