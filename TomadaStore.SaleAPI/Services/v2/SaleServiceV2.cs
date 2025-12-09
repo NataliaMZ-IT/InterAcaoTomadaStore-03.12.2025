@@ -79,7 +79,7 @@ namespace TomadaStore.SaleAPI.Services.v2
                                             autoDelete: false,
                                             arguments: null);
 
-            string message = JsonSerializer.Serialize(sale);
+            string message = JsonSerializer.Serialize<SaleJsonDTO>(sale);
 
             var body = Encoding.UTF8.GetBytes(message);
 

@@ -38,6 +38,7 @@ namespace TomadaStore.PaymentAPI.Services
                 {
                     Customer = response.Customer,
                     Products = response.Products,
+                    SaleDate = response.SaleDate,
                     TotalPrice = response.TotalPrice,
                     PaymentApproval = (response.TotalPrice < 1000)
                 };

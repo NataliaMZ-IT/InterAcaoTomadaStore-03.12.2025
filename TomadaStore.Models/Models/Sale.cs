@@ -11,12 +11,12 @@ namespace TomadaStore.Models.Models
         public decimal TotalPrice { get; private set; }
         public bool PaymentApproval { get; private set; }
 
-        public Sale(Customer customer, List<Product> products, decimal totalPrice, bool approved)
+        public Sale(Customer customer, List<Product> products, DateTime date, decimal totalPrice, bool approved)
         {
             Id = new ObjectId();
             Customer = customer;
             Products = products;
-            SaleDate = DateTime.UtcNow;
+            SaleDate = date;
             TotalPrice = totalPrice;
             PaymentApproval = approved;
         }

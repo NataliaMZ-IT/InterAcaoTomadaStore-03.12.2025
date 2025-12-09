@@ -74,7 +74,7 @@ namespace TomadaStore.SaleConsumerAPI.Services
                                       );
                 products.Add(product);
             }
-            return new Sale(customer, products, dto.TotalPrice, dto.PaymentApproval);
+            return new Sale(customer, products, dto.SaleDate, dto.TotalPrice, dto.PaymentApproval);
         }
     }
 }

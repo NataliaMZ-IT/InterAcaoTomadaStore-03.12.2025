@@ -59,6 +59,7 @@ namespace TomadaStore.SaleAPI.Repositories
                 (
                     customerSale,
                     products,
+                    DateTime.UtcNow,
                     total,
                     true
                 ));

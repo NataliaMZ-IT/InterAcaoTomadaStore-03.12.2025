@@ -8,6 +8,7 @@ namespace TomadaStore.Models.DTOs.Sale
     {
         public CustomerResponseDTO Customer { get; init; }
         public List<ProductResponseDTO> Products { get; init; }
+        public DateTime SaleDate {  get; init; } = DateTime.UtcNow;
         public decimal TotalPrice { get; init; }
     }
 }

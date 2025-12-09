@@ -7,6 +7,7 @@ namespace TomadaStore.Models.DTOs.Sale
     {
         public CustomerResponseDTO Customer { get; init; }
         public List<ProductResponseDTO> Products { get; init; }
+        public DateTime SaleDate { get; init; }
         public decimal TotalPrice { get; init; }
         public bool PaymentApproval { get; init; }
     }
