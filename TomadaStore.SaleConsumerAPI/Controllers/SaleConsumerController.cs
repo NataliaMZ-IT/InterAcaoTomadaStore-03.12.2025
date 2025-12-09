@@ -3,7 +3,7 @@ using TomadaStore.SaleConsumerAPI.Services;
 
 namespace TomadaStore.SaleConsumerAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v2/[controller]")]
     [ApiController]
     public class SaleConsumerController : ControllerBase
     {

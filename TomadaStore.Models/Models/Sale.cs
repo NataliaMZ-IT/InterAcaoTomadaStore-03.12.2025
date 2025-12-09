@@ -9,14 +9,16 @@ namespace TomadaStore.Models.Models
         public List<Product> Products { get; private set; }
         public DateTime SaleDate { get; private set; }
         public decimal TotalPrice { get; private set; }
+        public bool PaymentApproval { get; private set; }
 
-        public Sale(Customer customer, List<Product> products, decimal totalPrice)
+        public Sale(Customer customer, List<Product> products, decimal totalPrice, bool approved)
         {
             Id = new ObjectId();
             Customer = customer;
             Products = products;
             SaleDate = DateTime.UtcNow;
             TotalPrice = totalPrice;
+            PaymentApproval = approved;
         }
     }
 }

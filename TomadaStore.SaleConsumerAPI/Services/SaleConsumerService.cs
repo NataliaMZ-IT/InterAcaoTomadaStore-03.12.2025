@@ -25,39 +25,32 @@ namespace TomadaStore.SaleConsumerAPI.Services
 
         public async Task StoreSaleAsync()
         {
-            try
+            using var connection = await _factory.CreateConnectionAsync();
+            using var channel = await connection.CreateChannelAsync();
+
+            await channel.QueueDeclareAsync(queue: "payment",
+                                            durable: false,
+                                            exclusive: false,
+                                            autoDelete: false,
+                                            arguments: null);
+
+            var consumer = new AsyncEventingBasicConsumer(channel);
+            consumer.ReceivedAsync += async (model, ea) =>
             {
-                using var connection = await _factory.CreateConnectionAsync();
-                using var channel = await connection.CreateChannelAsync();
+                var body = ea.Body.ToArray();
+                var message = Encoding.UTF8.GetString(body);
+                var response = JsonSerializer.Deserialize<SalePaymentJsonDTO>(message);
 
-                await channel.QueueDeclareAsync(queue: "sale",
-                                                durable: false,
-                                                exclusive: false,
-                                                autoDelete: false,
-                                                arguments: null);
+                await _saleRepository.StoreSaleAsync(DTOtoSale(response));
+            };
 
-                var consumer = new AsyncEventingBasicConsumer(channel);
-                consumer.ReceivedAsync += async (model, ea) =>
-                {
-                    var body = ea.Body.ToArray();
-                    var message = Encoding.UTF8.GetString(body);
-                    var response = JsonSerializer.Deserialize<SaleJsonDTO>(message);
+            await channel.BasicConsumeAsync("payment",
+                                            autoAck: true,
+                                            consumer: consumer);
 
-                    await _saleRepository.StoreSaleAsync(DTOtoSale(response));
-                };
-
-                await channel.BasicConsumeAsync("sale",
-                                                autoAck: true,
-                                                consumer: consumer);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, "Error storing sale in database.");
-                throw;
-            }
         }
 
-        public Sale DTOtoSale(SaleJsonDTO dto)
+        public Sale DTOtoSale(SalePaymentJsonDTO dto)
         {
             Customer customer = new(dto.Customer.Id,
                                     dto.Customer.FirstName,
@@ -68,7 +61,7 @@ namespace TomadaStore.SaleConsumerAPI.Services
                                     );
 
             var products = new List<Product>();
-            foreach(var dtoProduct in dto.Products)
+            foreach (var dtoProduct in dto.Products)
             {
                 Product product = new(dtoProduct.Id,
                                       dtoProduct.Name,
@@ -81,7 +74,7 @@ namespace TomadaStore.SaleConsumerAPI.Services
                                       );
                 products.Add(product);
             }
-            return new Sale(customer, products, dto.TotalPrice);
+            return new Sale(customer, products, dto.TotalPrice, dto.PaymentApproval);
         }
     }
 }

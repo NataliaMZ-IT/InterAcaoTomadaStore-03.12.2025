@@ -59,7 +59,8 @@ namespace TomadaStore.SaleAPI.Repositories
                 (
                     customerSale,
                     products,
-                    total
+                    total,
+                    true
                 ));
             }
             catch (Exception e)
